@@ -1,4 +1,8 @@
+import 'dart:ffi';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'quiz.dart';
 
 class sutra1 extends StatefulWidget {
   final String sutra;
@@ -34,22 +38,20 @@ class _sutra1State extends State<sutra1> {
       _isv2 = false,
       _isv3 = false,
       _isv4 = false,
-      _isv5 = false;
+      _isv5 = false,
+      isq = false;
   final _tc1 = TextEditingController();
   final _tc2 = TextEditingController();
+
   _sutra1State(this.sutra, this.image);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF240831),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF240831),
-        title: Text(
-          sutra,
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'CaveatBrush', fontSize: 30),
-        ),
-        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -59,42 +61,51 @@ class _sutra1State extends State<sutra1> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
+                  sutra,
+                  style: TextStyle(
+                      color: Color(0xFF15F4EE),
+                      fontFamily: 'FredokaOne',
+                      fontSize: 30),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
                   'Urdhva - Tiryagbhyam Sutra is a general technique applicable to  multiplication of any two digit numbers. The word  means “Vertically and cross wise”.',
                   style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'CaveatBrush',
-                      fontSize: 30),
-                  textAlign: TextAlign.center,
+                      color: Color(0xFF15F4EE),
+                      fontFamily: 'FredokaOne',
+                      fontSize: 20),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextField(
                   controller: _tc1,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Color(0xFF15F4EE),
+                  ),
                   maxLength: 2,
                   maxLines: 1,
                   decoration: InputDecoration(
                       hintText: 'Enter first number',
                       hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'CaveatBrush',
-                          fontSize: 20),
+                          color: Color(0xFF15F4EE), fontFamily: 'FredokaOne'),
                       border: OutlineInputBorder()),
                   keyboardType: TextInputType.number,
                 ),
                 SizedBox(height: 10),
                 TextField(
                   controller: _tc2,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Color(0xFF15F4EE),
+                  ),
                   maxLength: 2,
                   maxLines: 1,
                   decoration: InputDecoration(
                       hintText: 'Enter second number',
                       hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'CaveatBrush',
-                          fontSize: 20),
+                          color: Color(0xFF15F4EE), fontFamily: 'FredokaOne'),
                       border: OutlineInputBorder()),
                   keyboardType: TextInputType.number,
                 ),
@@ -114,161 +125,181 @@ class _sutra1State extends State<sutra1> {
                       _c = (_n2 * _m1) + (_n1 * _m2);
                     });
                   },
-                  color: Color(0xFF15F4EE),
+                  color: Colors.amber[700],
                   child: Text(
-                    'calculate',
-                    style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
+                    'Calculate',
                   ),
                 ),
                 SizedBox(height: 10),
-                Visibility(
-                  visible: _isv1,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv2 = true;
-                      }),
-                    },
-                    child: Container(
-                        color: Color(0xFF240831),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Multiply $_n2 and $_m2 i.e $_n2 x $_m2 =  $_a ',
-                                  style: TextStyle(
-                                      fontFamily: 'CaveatBrush',
-                                      color: Colors.white,
-                                      fontSize: 30),
-                                ),
-                                Text(
-                                  'tap for nextstep',
-                                  style: TextStyle(
-                                      fontFamily: 'CaveatBrush',
-                                      color: Colors.white,
-                                      fontSize: 20),
-                                )
-                              ],
-                            ))),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Visibility(
-                  visible: _isv2,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv3 = true;
-                      }),
-                    },
-                    child: Container(
-                      color: Color(0xFF240831),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Multiply $_n1 and $_m1 i.e $_n1 x $_m1 =  $_b ',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Visibility(
+                      visible: _isv1,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv2 = true;
+                          }),
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xFF15F4EE),
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Multiply $_n2 and $_m2 i.e $_n2 x $_m2 =  $_a ',
+                                      style: TextStyle(
+                                          fontFamily: 'FredokaOne',
+                                          color: Colors.white,
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      'tap for nextstep',
+                                      style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ))),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv2,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv3 = true;
+                          }),
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFF15F4EE),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Multiply $_n1 and $_m1 i.e $_n1 x $_m1 =  $_b ',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                ' tap for nextstep',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv3,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv4 = true;
+                            _x1 = _a ~/ 10;
+                            _x2 = _a % 10;
+                            _y1 = _b ~/ 10;
+                            _y2 = _b % 10;
+                            _d1 = _c ~/ 10;
+                            _d2 = _c % 10;
+                          }),
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFF15F4EE),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Now do ($_n1 x $_m2) + ($_n2 x $_m1) = $_c',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                ' tap for nextstep',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv4,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv5 = true;
+                            _z2 = _x2 + _d1;
+                            _z1 = _y1 + _d2;
+                            _ans = _n * _m;
+                          }),
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFF15F4EE),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Now do $_x1 | $_x2 + $_d1 | $_d2 + $_y1 | $_y2',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                ' tap for check answer',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Color(0xFF15F4EE),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Answer is $_ans',
                             style: TextStyle(
-                                fontFamily: 'CaveatBrush',
+                                fontFamily: 'FredokaOne',
                                 color: Colors.white,
                                 fontSize: 30),
                           ),
-                          Text(
-                            ' tap for nextstep',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 20),
-                          )
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Visibility(
-                  visible: _isv3,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv4 = true;
-                        _x1 = _a ~/ 10;
-                        _x2 = _a % 10;
-                        _y1 = _b ~/ 10;
-                        _y2 = _b % 10;
-                        _d1 = _c ~/ 10;
-                        _d2 = _c % 10;
-                      }),
-                    },
-                    child: Container(
-                      color: Color(0xFF240831),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Now do ($_n1 x $_m2) + ($_n2 x $_m1) = $_c',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 30),
-                          ),
-                          Text(
-                            ' tap for nextstep',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 20),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Visibility(
-                  visible: _isv4,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv5 = true;
-                        _z2 = _x2 + _d1;
-                        _z1 = _y1 + _d2;
-                        _ans = _n * _m;
-                      }),
-                    },
-                    child: Container(
-                      color: Color(0xFF240831),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Now do $_x1 | $_x2 + $_d1 | $_d2 + $_y1 | $_y2',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 30),
-                          ),
-                          Text(
-                            ' tap for check answer',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush', color: Colors.white),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Visibility(
-                  visible: _isv5,
-                  child: Container(
-                    color: Color(0xFF240831),
-                    child: Text(
-                      'Answer is $_ans',
-                      style: TextStyle(
-                          fontFamily: 'CaveatBrush',
-                          color: Colors.white,
-                          fontSize: 30),
-                    ),
-                  ),
+                  ],
                 ),
                 SizedBox(height: 10),
                 FlatButton(
@@ -283,11 +314,10 @@ class _sutra1State extends State<sutra1> {
                         _isv5 = false;
                       });
                     },
-                    color: Color(0xFF15F4EE),
+                    color: Colors.amber[700],
                     child: Text(
                       'Reset',
-                      style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
-                    ))
+                    )),
               ]),
         ),
       ),
@@ -315,14 +345,11 @@ class _sutra2State extends State<sutra2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF240831),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF240831),
-        title: Text(
-          sutra,
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'CaveatBrush', fontSize: 30),
-        ),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -333,26 +360,35 @@ class _sutra2State extends State<sutra2> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Text(
+                  sutra,
+                  style: TextStyle(
+                      color: Color(0xFFFF007F),
+                      fontFamily: 'FredokaOne',
+                      fontSize: 30),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
                   'Ekadhikena Purvena Sutra is a specific  technique applicable to  find squares of any numbers with last digit as  5. The word  means “One more than the Previous”.',
                   style: TextStyle(
-                      fontFamily: 'CaveatBrush',
-                      color: Colors.white,
-                      fontSize: 30),
-                  textAlign: TextAlign.center,
+                      fontFamily: 'FredokaOne',
+                      color: Color(0xFFFF007F),
+                      fontSize: 20),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 TextField(
                   controller: _tc1,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Color(0xFFFF007F),
+                  ),
                   maxLines: 1,
                   decoration: InputDecoration(
                       hintText: 'Enter number ending with 5',
                       hintStyle: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'CaveatBrush',
-                          fontSize: 20),
+                          color: Color(0xFFFF007F), fontFamily: 'FredokaOne'),
                       border: OutlineInputBorder()),
                   keyboardType: TextInputType.number,
                 ),
@@ -371,105 +407,126 @@ class _sutra2State extends State<sutra2> {
                       _b = _d + 1;
                     });
                   },
-                  color: Color(0xFF15F4EE),
+                  color: Colors.amber[700],
                   child: Text(
-                    'calculate',
-                    style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
+                    'Calculate',
                   ),
                 ),
                 SizedBox(height: 10),
-                Visibility(
-                    visible: _isv1b,
-                    child: Container(
-                        color: Color(0xFF240831),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              'Oops!!!, the last digit is not 5',
-                              style: TextStyle(
-                                  fontFamily: 'CaveatBrush',
-                                  color: Colors.red,
-                                  fontSize: 30),
-                            )))),
-                Visibility(
-                  visible: _isv1,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv2 = true;
-                        _c = _d * _b;
-                      }),
-                    },
-                    child: Container(
-                        color: Color(0xFF240831),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Avoid the 5 at end , then add 1 to remaining part\n i.e $_d + 1 = $_b',
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Visibility(
+                        visible: _isv1b,
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xFFFF007F),
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  'Oops!!!, the last digit is not 5',
                                   style: TextStyle(
-                                      fontFamily: 'CaveatBrush',
-                                      color: Colors.white,
-                                      fontSize: 30),
-                                ),
-                                Text(
-                                  'tap for nextstep',
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.red,
+                                      fontSize: 20),
+                                )))),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv1,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv2 = true;
+                            _c = _d * _b;
+                          }),
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xFFFF007F),
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      'Avoid the 5 at end , then add 1 to remaining part\n i.e $_d + 1 = $_b',
+                                      style: TextStyle(
+                                          fontFamily: 'FredokaOne',
+                                          color: Colors.white,
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      'tap for nextstep',
+                                      style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ))),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv2,
+                      child: GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            _isv3 = true;
+                          }),
+                        },
+                        child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0xFFFF007F),
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Multiply the remaining part and result\n i.e $_d x $_b = $_c',
+                                      style: TextStyle(
+                                          fontFamily: 'FredokaOne',
+                                          color: Colors.white,
+                                          fontSize: 20),
+                                    ),
+                                    Text(
+                                      'tap for nextstep',
+                                      style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ))),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Visibility(
+                      visible: _isv3,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xFFFF007F),
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                child: Text(
+                                  'Now 25 to the right end of the product \n i.e Answer is $_c 25',
                                   style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ))),
-                  ),
-                ),
-                Visibility(
-                  visible: _isv2,
-                  child: GestureDetector(
-                    onTap: () => {
-                      setState(() {
-                        _isv3 = true;
-                      }),
-                    },
-                    child: Container(
-                        color: Color(0xFF240831),
-                        child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  'Multiply the remaining part and result\n i.e $_d x $_b = $_c',
-                                  style: TextStyle(
-                                      fontFamily: 'CaveatBrush',
-                                      color: Colors.white,
-                                      fontSize: 30),
-                                ),
-                                Text(
-                                  'tap for nextstep',
-                                  style: TextStyle(
-                                      fontFamily: 'CaveatBrush',
+                                      fontFamily: 'FredokaOne',
                                       color: Colors.white,
                                       fontSize: 20),
-                                )
-                              ],
-                            ))),
-                  ),
-                ),
-                Visibility(
-                  visible: _isv3,
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Now 25 to the right end of the product \n i.e Answer is $_c 25',
-                            style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 30),
-                          ))),
+                                ),
+                              ))),
+                    ),
+                    SizedBox(height: 10),
+                  ],
                 ),
                 SizedBox(height: 10),
                 FlatButton(
@@ -482,10 +539,9 @@ class _sutra2State extends State<sutra2> {
                         _isv1b = false;
                       });
                     },
-                    color: Color(0xFF15F4EE),
+                    color: Colors.amber[700],
                     child: Text(
                       'Reset',
-                      style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
                     ))
               ]),
         ),
@@ -529,15 +585,11 @@ class _sutra3State extends State<sutra3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF240831),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF240831),
-        title: Text(
-          sutra,
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'CaveatBrush', fontSize: 30),
-        ),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -547,40 +599,47 @@ class _sutra3State extends State<sutra3> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
+                sutra,
+                style: TextStyle(
+                    color: Colors.lightGreenAccent[400],
+                    fontFamily: 'FredokaOne',
+                    fontSize: 30),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
                 'Anurupyena Sutra is a specific  technique applicable to multiplication of numbers which are closer to the multiple of 10. It means “proportionality”.',
                 style: TextStyle(
-                    fontFamily: 'CaveatBrush',
-                    color: Colors.white,
-                    fontSize: 30),
-                textAlign: TextAlign.center,
+                    fontFamily: 'FredokaOne',
+                    color: Colors.lightGreenAccent[400],
+                    fontSize: 20),
               ),
               SizedBox(
                 height: 10,
               ),
               TextField(
                 controller: _tc1,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.lightGreenAccent[400]),
                 maxLines: 1,
                 decoration: InputDecoration(
                     hintText: 'Enter first number',
                     hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CaveatBrush',
-                        fontSize: 20),
+                        color: Colors.lightGreenAccent[400],
+                        fontFamily: 'FredokaOne'),
                     border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 10),
               TextField(
                 controller: _tc2,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.lightGreenAccent[400]),
                 maxLines: 1,
                 decoration: InputDecoration(
                     hintText: 'Enter second number',
                     hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CaveatBrush',
-                        fontSize: 20),
+                        color: Colors.lightGreenAccent[400],
+                        fontFamily: 'FredokaOne'),
                     border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
               ),
@@ -603,196 +662,222 @@ class _sutra3State extends State<sutra3> {
                     _b = (_f * 10) - _m;
                   });
                 },
-                color: Color(0xFF15F4EE),
+                color: Colors.amber[700],
                 child: Text(
-                  'calculate',
-                  style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
+                  'Calculate',
                 ),
               ),
               SizedBox(height: 10),
-              Visibility(
-                visible: _isv1,
-                child: GestureDetector(
-                  onTap: () => {
-                    setState(() {
-                      _isv2 = true;
-                    }),
-                  },
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Find the nearest multiple of 10 for $_n and $_m \n i.e for $_n and $_m it\'s $_f 0 ',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Visibility(
+                    visible: _isv1,
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isv2 = true;
+                        }),
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.lightGreenAccent[400],
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Find the nearest multiple of 10 for $_n and $_m \n i.e for $_n and $_m it\'s $_f 0 ',
+                                    style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    'tap for nextstep',
+                                    style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv2,
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isv3 = true;
+                          _c = _a * _b;
+                        }),
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.lightGreenAccent[400],
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Find the deviation of $_n and $_m from $_f 0 \n i.e $_f 0 - $_n = $_a  and $_f 0 - $_m = $_b',
+                                    style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    'tap for nextstep',
+                                    style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv3,
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isv4 = true;
+                          _d = _n - _b;
+                        }),
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.lightGreenAccent[400],
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Multiply th deviations \n i.e $_a x $_b = $_c',
+                                    style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    'tap for nextstep',
+                                    style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv4,
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isv5 = true;
+                          _e = _d * _f;
+                        }),
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.lightGreenAccent[400],
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Take difference of any given number with anothers deviation \n i.e $_n - $_b = $_d',
+                                    style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    'tap for nextstep',
+                                    style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv5,
+                    child: GestureDetector(
+                      onTap: () => {
+                        setState(() {
+                          _isv6 = true;
+                          _ans = _n * _m;
+                          _ans1 = (_e * 10) + _c;
+                        }),
+                      },
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.lightGreenAccent[400],
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Multiply th difference with factor \n i.e $_d x $_f = $_e',
+                                    style: TextStyle(
+                                        fontFamily: 'FredokaOne',
+                                        color: Colors.white,
+                                        fontSize: 20),
+                                  ),
+                                  Text(
+                                    'tap for nextstep',
+                                    style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                ],
+                              ))),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv6,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.lightGreenAccent[400],
+                        ),
+                        child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                flag == 1
+                                    ? 'Place product of deviation at right of last result \n i.e Answer is $_ans'
+                                    : 'Multiply result with 10 and add product of deviation \n i.e ($_e x 10) + $_c = $_ans1',
                                 style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 30),
-                              ),
-                              Text(
-                                'tap for nextstep',
-                                style: TextStyle(
-                                  fontFamily: 'CaveatBrush',
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ))),
-                ),
-              ),
-              Visibility(
-                visible: _isv2,
-                child: GestureDetector(
-                  onTap: () => {
-                    setState(() {
-                      _isv3 = true;
-                      _c = _a * _b;
-                    }),
-                  },
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Find the deviation of $_n and $_m from $_f 0 \n i.e $_f 0 - $_n = $_a  and $_f 0 - $_m = $_b',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 30),
-                              ),
-                              Text(
-                                'tap for nextstep',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
+                                    fontFamily: 'FredokaOne',
                                     color: Colors.white,
                                     fontSize: 20),
-                              )
-                            ],
-                          ))),
-                ),
-              ),
-              Visibility(
-                visible: _isv3,
-                child: GestureDetector(
-                  onTap: () => {
-                    setState(() {
-                      _isv4 = true;
-                      _d = _n - _b;
-                    }),
-                  },
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Multiply th deviations \n i.e $_a x $_b = $_c',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 30),
                               ),
-                              Text(
-                                'tap for nextstep',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 20),
-                              )
-                            ],
-                          ))),
-                ),
-              ),
-              Visibility(
-                visible: _isv4,
-                child: GestureDetector(
-                  onTap: () => {
-                    setState(() {
-                      _isv5 = true;
-                      _e = _d * _f;
-                    }),
-                  },
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Take difference of any given number with anothers deviation \n i.e $_n - $_b = $_d',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 30),
-                              ),
-                              Text(
-                                'tap for nextstep',
-                                style: TextStyle(
-                                  fontFamily: 'CaveatBrush',
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ))),
-                ),
-              ),
-              Visibility(
-                visible: _isv5,
-                child: GestureDetector(
-                  onTap: () => {
-                    setState(() {
-                      _isv6 = true;
-                      _ans = _n * _m;
-                      _ans1 = (_e * 10) + _c;
-                    }),
-                  },
-                  child: Container(
-                      color: Color(0xFF240831),
-                      child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text(
-                                'Multiply th difference with factor \n i.e $_d x $_f = $_e',
-                                style: TextStyle(
-                                    fontFamily: 'CaveatBrush',
-                                    color: Colors.white,
-                                    fontSize: 30),
-                              ),
-                              Text(
-                                'tap for nextstep',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'CaveatBrush',
-                                  color: Colors.white,
-                                ),
-                              )
-                            ],
-                          ))),
-                ),
-              ),
-              Visibility(
-                visible: _isv6,
-                child: Container(
-                    color: Color(0xFF240831),
-                    child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          flag == 1
-                              ? 'Place product of deviation at right of last result \n i.e Answer is $_ans'
-                              : 'Multiply result with 10 and add product of deviation \n i.e ($_e x 10) + $_c = $_ans1',
-                          style: TextStyle(
-                              fontFamily: 'CaveatBrush',
-                              color: Colors.white,
-                              fontSize: 30),
-                        ))),
+                            ))),
+                  ),
+                ],
               ),
               SizedBox(height: 10),
               FlatButton(
@@ -808,10 +893,10 @@ class _sutra3State extends State<sutra3> {
                       _isv6 = false;
                     });
                   },
-                  color: Color(0xFF15F4EE),
+                  color: Colors.amber[700],
                   child: Text(
                     'Reset',
-                    style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
+                    style: TextStyle(fontFamily: 'ConcertOne'),
                   ))
             ],
           ),
@@ -847,15 +932,11 @@ class _sutra4State extends State<sutra4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF240831),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF240831),
-        title: Text(
-          sutra,
-          style: TextStyle(
-              color: Colors.white, fontFamily: 'CaveatBrush', fontSize: 30),
-        ),
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -865,39 +946,44 @@ class _sutra4State extends State<sutra4> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Text(
-                'Antyaordaske’pi Sutra is a specific  technique applicable to multiplication of  two numbers with  sum of their last digits as 10 and remaining digits are same. The word  means “Last Totalling as 10.”.',
+                sutra,
                 style: TextStyle(
-                    fontFamily: 'CaveatBrush',
-                    color: Colors.white,
+                    color: Colors.purple[900],
+                    fontFamily: 'FredokaOne',
                     fontSize: 30),
-                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Antyaordaske’pi Sutra is a specific  technique applicable to multiplication of  two numbers with  sum of their last digits as 10 and remaining digits are same. The word  means “Last Totalling as 10.”',
+                style: TextStyle(
+                    fontFamily: 'FredokaOne',
+                    color: Colors.purple[900],
+                    fontSize: 20),
               ),
               SizedBox(
                 height: 10,
               ),
               TextField(
                 controller: _tc1,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.purple[900]),
                 maxLines: 1,
                 decoration: InputDecoration(
                     hintText: 'Enter first number ',
                     hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CaveatBrush',
-                        fontSize: 20),
+                        color: Colors.purple[900], fontFamily: 'FredokaOne'),
                     border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
               ),
               TextField(
                 controller: _tc2,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.purple[900]),
                 maxLines: 1,
                 decoration: InputDecoration(
                     hintText: 'Enter 2nd number ',
                     hintStyle: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'CaveatBrush',
-                        fontSize: 20),
+                        color: Colors.purple[900], fontFamily: 'FredokaOne'),
                     border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
               ),
@@ -921,132 +1007,166 @@ class _sutra4State extends State<sutra4> {
                     _f = _d * _e;
                   });
                 },
-                color: Color(0xFF15F4EE),
+                color: Colors.amber[700],
                 child: Text(
-                  'calculate',
-                  style: TextStyle(fontFamily: 'ConcertOne', fontSize: 20),
+                  'Calculate',
                 ),
               ),
               SizedBox(height: 10),
-              Visibility(
-                visible: _isv1b,
-                child: Container(
-                    child: Text(
-                  'Oops!!!, sum of last digits are not 10',
-                  style: TextStyle(
-                      fontFamily: 'CaveatBrush',
-                      color: Colors.red,
-                      fontSize: 30),
-                )),
-              ),
-              Visibility(
-                visible: _isv1c,
-                child: Container(
-                    child: Text(
-                  'Oops!!!, intial digits are not same',
-                  style: TextStyle(
-                      fontFamily: 'CaveatBrush',
-                      color: Colors.red,
-                      fontSize: 30),
-                )),
-              ),
-              Visibility(
-                  visible: _isv1,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isv2 = true;
-                        _g = _c + 1;
-                      });
-                    },
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Visibility(
+                    visible: _isv1b,
                     child: Container(
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Multiply the last digits \n i.e $_d x $_e = $_f',
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.purple[900],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Oops!!!, sum of last digits are not 10',
                             style: TextStyle(
-                                fontFamily: 'CaveatBrush',
-                                color: Colors.white,
-                                fontSize: 30),
+                                fontFamily: 'FredokaOne',
+                                color: Colors.red,
+                                fontSize: 20),
                           ),
-                          Text(
-                            'Tap for next step',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'CaveatBrush',
-                              color: Colors.white,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )),
-              Visibility(
-                  visible: _isv2,
-                  child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _isv3 = true;
-                          _h = _g * _c;
-                        });
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              'Add 1 to the Remaining part \n i.e $_c + 1 = $_g',
-                              style: TextStyle(
-                                  fontFamily: 'CaveatBrush',
-                                  color: Colors.white,
-                                  fontSize: 30),
-                            ),
-                            Text(
-                              'Tap for Next Step',
-                              style: TextStyle(
-                                  fontFamily: 'CaveatBrush',
-                                  fontSize: 20,
-                                  color: Colors.white),
-                            )
-                          ],
-                        ),
-                      ))),
-              Visibility(
-                  visible: _isv3,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isv4 = true;
-                      });
-                    },
+                        )),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv1c,
                     child: Container(
-                      child: Column(children: <Widget>[
-                        Text(
-                          'Mutiply the remaining part with result \n i.e $_c x $_g = $_h',
-                          style: TextStyle(
-                              fontFamily: 'CaveatBrush',
-                              color: Colors.white,
-                              fontSize: 30),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.purple[900],
                         ),
-                        Text(
-                          'Tap for next step',
+                        child: Text(
+                          'Oops!!!, intial digits are not same',
                           style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'CaveatBrush',
-                              color: Colors.white),
+                              fontFamily: 'FredokaOne',
+                              color: Colors.red,
+                              fontSize: 20),
+                        )),
+                  ),
+                  SizedBox(height: 10),
+                  Visibility(
+                      visible: _isv1,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isv2 = true;
+                            _g = _c + 1;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.purple[900],
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Text(
+                                'Multiply the last digits \n i.e $_d x $_e = $_f',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white,
+                                    fontSize: 20),
+                              ),
+                              Text(
+                                'Tap for next step',
+                                style: TextStyle(
+                                    fontFamily: 'FredokaOne',
+                                    color: Colors.white),
+                              )
+                            ],
+                          ),
                         ),
-                      ]),
-                    ),
-                  )),
-              Visibility(
-                visible: _isv4,
-                child: Container(
-                    child: Text(
-                  'Place $_f to right of $_h to get answer \n i.e Answer is $_h $_f',
-                  style: TextStyle(
-                      fontFamily: 'CaveatBrush',
-                      color: Colors.white,
-                      fontSize: 30),
-                )),
+                      )),
+                  SizedBox(height: 10),
+                  Visibility(
+                      visible: _isv2,
+                      child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isv3 = true;
+                              _h = _g * _c;
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.purple[900],
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  'Add 1 to the Remaining part \n i.e $_c + 1 = $_g',
+                                  style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  'Tap for Next Step',
+                                  style: TextStyle(
+                                      fontFamily: 'FredokaOne',
+                                      color: Colors.white),
+                                )
+                              ],
+                            ),
+                          ))),
+                  SizedBox(height: 10),
+                  Visibility(
+                      visible: _isv3,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isv4 = true;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.purple[900],
+                          ),
+                          child: Column(children: <Widget>[
+                            Text(
+                              'Mutiply the remaining part with result \n i.e $_c x $_g = $_h',
+                              style: TextStyle(
+                                  fontFamily: 'FredokaOne',
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                            Text(
+                              'Tap for next step',
+                              style: TextStyle(
+                                  fontFamily: 'FredokaOne',
+                                  color: Colors.white),
+                            ),
+                          ]),
+                        ),
+                      )),
+                  SizedBox(height: 10),
+                  Visibility(
+                    visible: _isv4,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.purple[900],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Place $_f to right of $_h to get answer \n i.e Answer is $_h $_f',
+                            style: TextStyle(
+                                fontFamily: 'FredokaOne',
+                                color: Colors.white,
+                                fontSize: 20),
+                          ),
+                        )),
+                  ),
+                ],
               ),
               SizedBox(height: 10),
               FlatButton(
@@ -1062,10 +1182,9 @@ class _sutra4State extends State<sutra4> {
                       _isv1c = false;
                     });
                   },
-                  color: Color(0xFF15F4EE),
+                  color: Colors.amber[700],
                   child: Text(
                     'Reset',
-                    style: TextStyle(fontFamily: 'ConcertOne'),
                   ))
             ],
           ),

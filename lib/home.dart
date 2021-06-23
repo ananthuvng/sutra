@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'nextpage.dart';
-import 'package:flutter/widgets.dart';
 import 'quiz.dart';
+import 'nextpage.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -11,333 +10,274 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  int c_index = 0;
+  final tabs = [learn(), quiz()];
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xFF240831),
-        body: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Color(0xFF240831),
-              collapsedHeight: 80,
-              expandedHeight: 140,
-              pinned: true,
-              automaticallyImplyLeading: false,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text(
-                  "Sutra",
-                  style: TextStyle(
-                    fontSize: 45,
-                    color: Colors.white,
-                    fontFamily: 'CaveatBrush',
-                  ),
-                ),
+    return Scaffold(
+      body: tabs[c_index],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: c_index,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+              backgroundColor: Colors.red),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.lightbulb_outline),
+              title: Text(
+                'Let\'s do',
               ),
+              backgroundColor: Colors.green)
+        ],
+        onTap: (index) {
+          setState(() {
+            c_index = index;
+          });
+        },
+      ),
+    );
+  }
+}
+
+class learn extends StatefulWidget {
+  const learn({Key? key}) : super(key: key);
+
+  @override
+  _learnState createState() => _learnState();
+}
+
+class _learnState extends State<learn> {
+  bool isv1 = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
+                  Widget>[
+            SizedBox(
+              height: 30,
             ),
-            SliverList(
-                delegate: SliverChildListDelegate(<Widget>[
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      child: Text(
-                          'Vedic Mathematics is a collection of techniques which are known as Sutras, to solve mathematical arithmetics in easy and faster way. It was discovered by Indian mathematician Jagadguru Shri Bharathi Krishna Tirthaji in the period between A.D. 1911 and 1918. \nVedic Mathematics consists of 16 Sutras and 13 sub-sutras which are either General Techniques (applicable to all sets of given data) and Specific Techniques (applicable to specific sets of given data), can be used for problems involved in arithmetic, algebra, geometry, calculus, conics',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontFamily: 'CaveatBrush',
+            Text(
+              'Hello kids,let\'s learn vedic mathematics...',
+              style: TextStyle(fontFamily: 'FredokaOne', fontSize: 25),
+            ),
+            Image(height: 300, image: AssetImage('images/children.png')),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        backgroundColor: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            color: Colors.amber,
+                            child: Text(
+                              'Vedic Mathematics is a collection of techniques which are known as Sutras, to solve mathematical arithmetics in easy and faster way. It was discovered by Indian mathematician Jagadguru Shri Bharathi Krishna Tirthaji in the period between A.D. 1911 and 1918. \nVedic Mathematics consists of 16 Sutras and 13 sub-sutras which are either General Techniques (applicable to all sets of given data) and Specific Techniques (applicable to specific sets of given data), can be used for problems involved in arithmetic, algebra, geometry, calculus, conics',
+                              style: TextStyle(
+                                  fontFamily: 'FredokaOne', fontSize: 15),
+                            ),
                           ),
-                          textAlign: TextAlign.center),
+                        ),
+                      );
+                    });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'What is vedic mathematics?',
+                      style: TextStyle(fontFamily: 'FredokaOne', fontSize: 22),
+                    ),
+                    Text(
+                      'Tap to know',
+                      style: TextStyle(fontFamily: 'FredokaOne', fontSize: 18),
                     )
-                  ])
-            ])),
-            SliverGrid.count(
-              crossAxisCount: 2,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => sutra1(
-                                  sutra: 'URDHVA-TIRYAGBHYAM',
-                                  image: 'image',
-                                )));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'URDHVA-TIRYAGBHYAM',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'ConcertOne',
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: Image(
-                                      image: AssetImage('images/math.png'))),
-                            ))
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        color: Color(0xFF15F4EE),
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF00FFFF),
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                            blurRadius: 14,
-                          ),
-                        ]),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => sutra2(
-                                  sutra: 'EKADHIKENA PURVENA',
-                                  image: 'image',
-                                )));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'EKADHIKENA PURVENA',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'ConcertOne',
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: Image(
-                                      image: AssetImage('images/five.png'))),
-                            ))
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFF007F),
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFFFC46AA),
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                            blurRadius: 14,
-                          ),
-                        ]),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => sutra3(
-                                  sutra: 'ANURUPYENA',
-                                  image: 'image',
-                                )));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'ANURUPYENA',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'ConcertOne',
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: Image(
-                                      image: AssetImage('images/maths.png'))),
-                            ))
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        color: Color(0xFFFF007F),
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFFFC46AA),
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                            blurRadius: 14,
-                          ),
-                        ]),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => sutra4(
-                                  sutra: 'ANTYAORDASKE’PI',
-                                  image: 'image',
-                                )));
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'ANTYAORDASKE’PI',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontFamily: 'ConcertOne',
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                            flex: 3,
-                            child: Center(
-                              child: Container(
-                                  margin: EdgeInsets.all(15),
-                                  child: Image(
-                                      image: AssetImage('images/ten.png'))),
-                            ))
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                        color: Color(0xFF15F4EE),
-                        borderRadius: BorderRadius.circular(40),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xFF00FFFF),
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                            blurRadius: 14,
-                          ),
-                        ]),
-                  ),
-                ),
-              ],
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate(<Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => quiz()));
-                  },
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.yellowAccent[700],
-                          borderRadius: BorderRadius.circular(30)),
-                      height: 100,
-                      child: Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'QUIZ',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'CaveatBrush',
-                                fontSize: 30),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Image(
-                              height: 50,
-                              width: 50,
-                              image: AssetImage('images/quiz.png'))
-                        ],
-                      ))),
+                  ],
                 ),
               ),
-              SizedBox(height: 40)
-            ]))
-          ],
+            ),
+            SizedBox(height: 10),
+            Center(
+              child: Text(
+                'Let\'s learn some vedic sutras',
+                style: TextStyle(fontFamily: 'FredokaOne', fontSize: 22),
+              ),
+            ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => sutra1(
+                              sutra: 'URDHVA-TIRYAGBHYAM',
+                              image: 'image',
+                            )));
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xFF15F4EE),
+                  ),
+                  width: MediaQuery.of(context).size.width * .9,
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'URDHVA-TIRYAGBHYAM',
+                          style:
+                              TextStyle(fontFamily: 'FredokaOne', fontSize: 25),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Expanded(
+                          flex: 5,
+                          child: Image(
+                              height: 170,
+                              image: AssetImage('images/rocket.png')))
+                    ],
+                  )),
+            ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => sutra2(
+                              sutra: 'EKADHIKENA PURVENA',
+                              image: 'image',
+                            )));
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xFFFF007F),
+                  ),
+                  width: MediaQuery.of(context).size.width * .9,
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'EKADHIKENA PURVENA',
+                          style:
+                              TextStyle(fontFamily: 'FredokaOne', fontSize: 25),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Expanded(
+                          flex: 4,
+                          child: Image(
+                              height: 170, image: AssetImage('images/kid.png')))
+                    ],
+                  )),
+            ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => sutra3(
+                              sutra: 'ANURUPYENA',
+                              image: 'image',
+                            )));
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.lightGreenAccent[400],
+                  ),
+                  width: MediaQuery.of(context).size.width * .9,
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'ANURUPYENA',
+                          style:
+                              TextStyle(fontFamily: 'FredokaOne', fontSize: 22),
+                        ),
+                      ),
+                      Expanded(
+                          flex: 4,
+                          child: Image(
+                              height: 170,
+                              image: AssetImage('images/ideas.png')))
+                    ],
+                  )),
+            ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => sutra4(
+                              sutra: 'ANTYAORDASKE’PI',
+                              image: 'image',
+                            )));
+              },
+              child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.purple[600],
+                  ),
+                  width: MediaQuery.of(context).size.width * .9,
+                  height: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: Text(
+                          'ANTYAORDASKE’PI',
+                          style:
+                              TextStyle(fontFamily: 'FredokaOne', fontSize: 25),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Image(
+                            height: 170,
+                            image: AssetImage('images/thinking.png')),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  )),
+            ),
+          ]),
         ),
       ),
     );

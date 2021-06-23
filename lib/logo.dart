@@ -3,30 +3,53 @@ import 'home.dart';
 import 'dart:async';
 
 class logo extends StatefulWidget {
+  const logo({Key? key}) : super(key: key);
+
   @override
   _logoState createState() => _logoState();
 }
 
 class _logoState extends State<logo> {
-  @override
   void initState() {
     // TODO: implement initState
 
-    Timer(Duration(seconds: 6),
-        () => Navigator.pushReplacementNamed(context, '/home'));
+    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/home'));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF262626),
       body: Center(
-          child: Column(
-        children: <Widget>[
-          Image(image: AssetImage('images/logo.gif')),
-          Image(image: AssetImage('images/AKL.png')),
-        ],
-      )),
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    'images/logo.jpg',
+                  ),
+                  fit: BoxFit.fill)),
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'M.A.K.E',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'FredokaOne',
+                    fontSize: 40),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Mathematical Assistant for Kids Enrichment',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'FredokaOne',
+                    fontSize: 15),
+              )
+            ],
+          )),
+        ),
+      ),
     );
   }
 }
