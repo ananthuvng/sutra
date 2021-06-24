@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'quiz.dart';
 import 'nextpage.dart';
+import 'nextpage2.dart';
+import 'nextpage3.dart';
+import 'nextpage4.dart';
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -66,7 +69,9 @@ class _learnState extends State<learn> {
               'Hello kids,let\'s learn vedic mathematics...',
               style: TextStyle(fontFamily: 'FredokaOne', fontSize: 25),
             ),
-            Image(height: 300, image: AssetImage('images/children.png')),
+            Center(
+                child:
+                    Image(height: 300, image: AssetImage('images/yogi.png'))),
             SizedBox(height: 10),
             GestureDetector(
               onTap: () {
@@ -100,6 +105,49 @@ class _learnState extends State<learn> {
                     Text(
                       'What is vedic mathematics?',
                       style: TextStyle(fontFamily: 'FredokaOne', fontSize: 22),
+                    ),
+                    Text(
+                      'Tap to know',
+                      style: TextStyle(fontFamily: 'FredokaOne', fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        backgroundColor: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            color: Colors.amber,
+                            child: Text(
+                              'Vedic mathematics helps a person to solve problems  10-15 times faster as well as reduces counting fingers and scratch works.\nVedic sutras reduces burden and increases concentration & creativity along with improving memory and greater mental ability.\nIt\'s application lies in planetary position calculation , construction of calendars with solar as well as lunar months and so on.',
+                              style: TextStyle(
+                                  fontFamily: 'FredokaOne', fontSize: 15),
+                            ),
+                          ),
+                        ),
+                      );
+                    });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'Why Vedic mathematics should be used',
+                      style: TextStyle(fontFamily: 'FredokaOne', fontSize: 22),
+                      textAlign: TextAlign.center,
                     ),
                     Text(
                       'Tap to know',

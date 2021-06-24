@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
+import 'package:vedic_math/home.dart';
 import 'dart:async';
 
 class logo extends StatefulWidget {
@@ -23,10 +23,7 @@ class _logoState extends State<logo> {
         child: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(
-                    'images/logo.jpg',
-                  ),
-                  fit: BoxFit.fill)),
+                  image: AssetImage('images/logo.jpg'), fit: BoxFit.cover)),
           child: Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

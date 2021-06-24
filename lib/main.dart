@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'logo.dart';
-import 'quiz.dart';
+import 'package:vedic_math/home.dart';
+import 'package:vedic_math/logo.dart';
+import 'package:vedic_math/quiz.dart';
 
 void main() {
   runApp(MaterialApp(
